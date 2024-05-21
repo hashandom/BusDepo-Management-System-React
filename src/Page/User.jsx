@@ -11,7 +11,7 @@ export default function AddProduct() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 ,marginTop:"55px"}}>
         
       <Typography variant='h4'>
-            user
+            User Management
         </Typography>
       </Box>
     </Box>

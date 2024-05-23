@@ -6,12 +6,19 @@ import Employee from './Page/Employee'
 import BusRoute from './Page/BusRoute'
 import Vehicle from './Page/Vehicle'
 import TripRecord from './Page/TripRecords'
+import LoginControl from './Page/LoginControl'
+import Signup from './LoginControl/signup'
+import ForgetPassword from './Page/ForgetPassword'
 export default function App() {
   return (
+    
  <>
   <BrowserRouter>
     <Routes>
-        <Route path='/' element={<Dashboard />}></Route>
+        <Route path='/' element={<LoginControl/>}></Route>
+        <Route path='/forgetpassword' element={<ForgetPassword/>}></Route>
+        <Route path='/signup' element={<Signup/>}></Route>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/user' element={<User />}></Route>
         <Route path='/employee' element={<Employee />}></Route>
         <Route path='/busroute' element={<BusRoute/>}></Route>
@@ -20,5 +27,5 @@ export default function App() {
     </Routes>
   </BrowserRouter>
  </>
-  )
+  );
 }

@@ -10,15 +10,10 @@ export const Table = ({rows,deleteRow ,editRow}) => {
       <table className="table">
         <thead>
           <tr>
-            <th>EmployeeId</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Address1</th>
-            <th>Address2</th>
-            <th>city</th>
-            <th>ContactNumber</th>
-            <th>EmailAddress</th>
-            <th>Designation</th>
+            <th>Route Id</th>
+            <th>Route Name</th>
+            <th>Route Length</th>
+            <th>Route Type</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -26,17 +21,10 @@ export const Table = ({rows,deleteRow ,editRow}) => {
         {rows.map((row, idx) => {
           return (
             <tr key={idx}>
-              <td>{row.employeeId}</td>
-              <td>{row.firstname}</td>
-              <td>{row.lastname}</td>
-              <td>{row.address1}</td>
-              <td>{row.address2}</td>
-              <td>{row.city}</td>
-              <td>{row.contactNo}</td>
-              <td>{row.email}</td>
-              <td>
-                <span>{row.designation}</span>
-              </td>
+              <td>{row.routeId}</td>
+              <td>{row.routeName}</td>
+              <td>{row.routelength}</td>
+              <td>{row.routeType}</td>
               <td>
                 <span className="actions">
                   <BsFillTrashFill className="delete-btn" onClick={()=>deleteRow(idx)} />

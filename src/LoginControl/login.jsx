@@ -18,6 +18,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoginIcon from "@mui/icons-material/Login";
 import { Link } from 'react-router-dom';
+import { loadDataFromApi } from "../Api/loadDataFromApi";
+
 // Email Validation
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -73,7 +75,7 @@ export default function Login() {
   };
 
   //handle Submittion
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSuccess(null);
     //First of all Check for Errors
 
@@ -92,13 +94,28 @@ export default function Login() {
     }
     setFormValid(null);
 
-    // Proceed to use the information passed
-    console.log("Email : " + emailInput);
-    console.log("Password : " + passwordInput);
-    console.log("Remember : " + rememberMe);
+    // // Proceed to use the information passed
+    // console.log("Email : " + emailInput);
+    // console.log("Password : " + passwordInput);
+    // console.log("Remember : " + rememberMe);
 
-    //Show Successfull Submittion
-    setSuccess("Form Submitted Successfully");
+    // //Show Successfull Submittion
+    // setSuccess("Form Submitted Successfully");
+
+
+    const requestbody = {
+      token : "",
+      data : {
+        email : emailInput,
+        password : passwordInput
+      }
+    }
+    
+    const response = await loadDataFromApi("http://localhost:2500/login", "POST", requestbody)
+    console.log("HTTP Response: ", response)
+
+    localStorage.setItem("token",response.token)
+
   };
 
   return (
@@ -204,6 +221,19 @@ export default function Login() {
         </Link>
         </small>
       </div>
+    
+      <Button 
+        variant="contained"
+        onClick = {() => {
+          const savedToken = localStorage.getItem("token")
+          alert("Saved Token: " + savedToken)
+        }}
+      >
+        Read Token
+      </Button>   
+    
     </div>
+
+    
   );
 }

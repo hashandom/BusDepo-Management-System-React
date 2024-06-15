@@ -26,6 +26,7 @@ import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 import { useNavigate } from 'react-router-dom';
+import { Assessment, People, Report, Settings } from '@mui/icons-material';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -96,8 +97,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [groupManageOpen, setGroupManageOpen] = React.useState(false);
+  const [groupReportOpen, setGroupReportOpen] = React.useState(false);
 
-    const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -125,157 +128,252 @@ export default function SideBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-           Depot Management System
+            Depot Management System
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} >
         <DrawerHeader>
-           
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/")}}>
-              <ListItemButton
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 <DashboardIcon />
-                </ListItemIcon>
-                
-                <ListItemText primary="DashBoard" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/User")}}>
-              <ListItemButton
+                <DashboardIcon />
+              </ListItemIcon>
+
+              <ListItemText primary="DashBoard" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          {/* <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/User") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 <AccountCircleIcon/>
-                </ListItemIcon>
-                
-              
-                
-                <ListItemText primary="User" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Employee")}}>
-              <ListItemButton
+                <AccountCircleIcon />
+              </ListItemIcon>
+
+
+
+              <ListItemText primary="User" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/Employee") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 <ConstructionIcon />
-                </ListItemIcon>
-                
-                <ListItemText primary="Employee" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/BusRoute")}}>
-              <ListItemButton
+                <ConstructionIcon />
+              </ListItemIcon>
+
+              <ListItemText primary="Employee" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/BusRoute") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 < AltRouteIcon />
-                </ListItemIcon>
-                
-                <ListItemText primary="BusRoute" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Vehicle")}}>
-              <ListItemButton
+                < AltRouteIcon />
+              </ListItemIcon>
+
+              <ListItemText primary="BusRoute" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/Vehicle") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 < DirectionsBusFilledIcon />
-                </ListItemIcon>
-                
-                <ListItemText primary="Vehicles" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/TripRecords")}}>
-              <ListItemButton
+                < DirectionsBusFilledIcon />
+              </ListItemIcon>
+
+              <ListItemText primary="Vehicles" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem
+            disablePadding
+            sx={{
+              display: 'block'
+            }}
+            onClick={() => {
+              navigate("/TripRecords")
+            }}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 <MenuBookIcon />
-                </ListItemIcon>
-                
-                <ListItemText primary="TripRecords" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-         <Divider/>
+                <MenuBookIcon />
+              </ListItemIcon>
+
+              <ListItemText primary="TripRecords" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Divider /> */}
+
+
+          <ListItem
+            disablePadding
+            onClick={() => {
+              setGroupManageOpen(!groupManageOpen)
+            }}
+            sx={{
+              background: groupManageOpen ? "whitesmoke" : "white"
+            }}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <Settings/>
+              </ListItemIcon>
+              <ListItemText
+                primary="Management"
+              />
+            </ListItemButton>
+          </ListItem>
+
+          {groupManageOpen ? <>
+            <List disablePadding sx={{background:"whitesmoke"}}>
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/manage/employees")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <People/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Employees"
+                  />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </> : <></>}
+
+          <ListItem
+            disablePadding
+            onClick={() => {
+              setGroupReportOpen(!groupReportOpen)
+            }}
+            sx={{
+              background: groupReportOpen ? "whitesmoke" : "white"
+            }}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <Assessment/>
+              </ListItemIcon>
+              <ListItemText
+                primary="Reports"
+              />
+            </ListItemButton>
+          </ListItem>
+
+          {groupReportOpen ? <>
+            <List disablePadding sx={{background:"whitesmoke"}}>
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/report/route")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <People/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Route Performance"
+                  />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </> : <></>}
+
+
         </List>
-    
       </Drawer>
-    
+
     </Box>
   );
 }

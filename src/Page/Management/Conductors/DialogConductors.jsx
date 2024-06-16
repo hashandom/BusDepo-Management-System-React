@@ -4,19 +4,11 @@ import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
 import { getEndpoint } from "../../../Api/endpoints";
 
-export default function DialogEmployees({entity, trigger, setTrigger}){
+export default function DialogConductors({entity, employeeData, trigger, setTrigger}){
     const [defaultEntityData, setDefaultEntityData] = useState(
         {
             id: entity.id,
-            nic_number: entity.nic_number,
-            first_name: entity.first_name,
-            last_name: entity.last_name,
-            address_line_1: entity.address_line_1,
-            address_line_2: entity.address_line_2,
-            city: entity.city,
-            telephone: entity.telephone,
-            email: entity.email,
-            designation: entity.designation,
+            employee_id: entity.employee_id,
             is_active: entity.is_active,
             is_deleted: entity.is_deleted
         }
@@ -82,7 +74,7 @@ export default function DialogEmployees({entity, trigger, setTrigger}){
                     }}
                 >
                     <Typography>
-                        {entity.id == 0 ? "Create Employee" : "Update Employee"}
+                        {entity.id == 0 ? "Create Conductor" : "Update Conductor"}
                     </Typography>
                     <IconButton
                         onClick={handleClose}
@@ -96,7 +88,7 @@ export default function DialogEmployees({entity, trigger, setTrigger}){
                     </IconButton>                    
                 </DialogTitle>
                 <DialogContent>
-                    <Stack spacing={2} paddingY={2}>
+                    {/* <Stack spacing={2} paddingY={2}>
                         <TextField 
                             label="NIC Number" 
                             size="small" 
@@ -108,7 +100,7 @@ export default function DialogEmployees({entity, trigger, setTrigger}){
                                     data: {
                                         ...prevApiRequest.data,
                                         nic_number: e.target.value
-                                    }
+                                      }
                                 }));
                             }}                            
                         />
@@ -249,7 +241,7 @@ export default function DialogEmployees({entity, trigger, setTrigger}){
                                 />
                             }
                         />
-                    </Stack>
+                    </Stack> */}
                 </DialogContent>
                 <DialogActions
                     sx={{

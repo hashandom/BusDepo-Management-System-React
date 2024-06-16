@@ -1,12 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SideBar from "../../../Component/SideBar";
-import DialogEmployees from "./DialogEmployees";
 import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
-import TableEmployees from "./TableEmployees";
 import { getEndpoint } from "../../../Api/endpoints";
+import TableConductors from "./TableConductors";
+import DialogConductors from "./DialogConductors";
 
-export default function ManageEmployees(){
+export default function ManageConductors(){
     const [trigger, setTrigger] = useState(false)
     const [entityData,setEntityData] = useState([])
     const [apiRequest,setApiRequest] = useState({
@@ -14,9 +14,16 @@ export default function ManageEmployees(){
         data:{}
     })
 
+    const [employeeData, setEmployeeData] = useState([])
+
     useEffect(() => {
         async function loadData(){
-            const response = await loadDataFromApi(getEndpoint(`employee`),"PATCH",apiRequest);
+            //loading employee details
+            const responseEmployees = await loadDataFromApi(getEndpoint(`employee`),"PATCH",apiRequest);
+            setEmployeeData(responseEmployees)
+
+            //loading conductor details
+            const response = await loadDataFromApi(getEndpoint(`conductor`),"PATCH",apiRequest);
             setEntityData(response)
         }
         loadData()
@@ -27,32 +34,26 @@ export default function ManageEmployees(){
             <Box sx={{ display: 'flex' }}>
                 <SideBar/>
                 <Box component="main" sx={{ flexGrow: 1, p: 2, marginTop: "50px" }}>
-                    <h3>Employee Management</h3>
-                    <DialogEmployees
+                    <h3>Conductor Management</h3>
+                    <DialogConductors
                         entity={{
                             id: 0,
-                            nic_number: "",
-                            first_name: "",
-                            last_name: "",
-                            address_line_1: "",
-                            address_line_2: "",
-                            city: "",
-                            telephone: "",
-                            email: "",
-                            designation: "",
+                            employee_id: 0,
                             is_active: true,
                             is_deleted: false
                         }}
+                        employeeData={employeeData}
                         trigger={trigger}
                         setTrigger={setTrigger}
                     />
-                    <TableEmployees
+                    <TableConductors
+                        employeeData={employeeData}
                         entityData={entityData}
                         trigger={trigger}
                         setTrigger={setTrigger}
                     />
                 </Box>
-            </Box>            
+            </Box>
         </>
     )
 }

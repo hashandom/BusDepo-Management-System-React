@@ -26,7 +26,10 @@ import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 import { useNavigate } from 'react-router-dom';
-import { Assessment, People, Report, Settings } from '@mui/icons-material';
+import { AirlineSeatReclineNormal, Assessment, People, Receipt, Report, Settings } from '@mui/icons-material';
+import readToken from '../Api/tokenReader';
+import { Snackbar } from '@mui/material';
+import TokenInfoDisplay from '../Api/TokenInfoDisplay';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -324,6 +327,47 @@ export default function SideBar() {
                   />
                 </ListItemButton>
               </ListItem>
+
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/manage/drivers")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AirlineSeatReclineNormal/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Drivers"
+                  />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/manage/conductors")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Receipt/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Conductors"
+                  />
+                </ListItemButton>
+              </ListItem>
+
             </List>
           </> : <></>}
 
@@ -373,7 +417,9 @@ export default function SideBar() {
 
         </List>
       </Drawer>
-
+      
+      <TokenInfoDisplay/>
     </Box>
+    
   );
 }

@@ -64,7 +64,7 @@ export default function TableEmployees({entityData, trigger, setTrigger}) {
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>{entity.nic_number}</TableCell>
                             <TableCell>{entity.first_name} {entity.last_name}</TableCell>
-                            <TableCell>{entity.address_line_1} {entity.address_line_2} {entity.city}</TableCell>
+                            <TableCell>{entity.address_line_1} {entity.address_line_2 !=="" && `, ${entity.address_line_2}`} {entity.city && `, ${entity.city}`}</TableCell>
                             <TableCell>
                                 <DialogEmployees
                                     entity={entity}

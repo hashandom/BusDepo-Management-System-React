@@ -11,6 +11,7 @@ import Signup from './LoginControl/signup'
 import ForgetPassword from './Page/ForgetPassword'
 
 import ManageEmployees from './Page/Management/Employees/Employees'
+import ManageConductors from './Page/Management/Conductors/Conductors'
 export default function App() {
   return (
     
@@ -30,6 +31,7 @@ export default function App() {
         <Route path='/TripRecords' element={<TripRecord />}></Route>
 
         <Route path='/manage/employees' element={<ManageEmployees/>}></Route>
+        <Route path='/manage/conductors' element={<ManageConductors/>}></Route>
     </Routes>
   </BrowserRouter>
  </>

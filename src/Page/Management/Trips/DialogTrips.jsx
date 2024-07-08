@@ -4,11 +4,17 @@ import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
 import { getEndpoint } from "../../../Api/endpoints";
 
-export default function DialogConductors({entity, employeeData, trigger, setTrigger}){
+export default function DialogTrips({entity, vehicleData, routeData, trigger, setTrigger}){
     const [defaultEntityData, setDefaultEntityData] = useState(
         {
             id: entity.id,
-            employee_id: entity.employee_id,
+            vehicle_id: entity.vehicle_id,
+            route_id: entity.route_id,
+            trip_number: entity.trip_number,
+            fuel_consumed: entity.fuel_consumed,
+            distance_traveled: entity.distance_traveled,
+            cash_collected: entity.cash_collected,
+            is_final: entity.is_final,
             is_active: entity.is_active,
             is_deleted: entity.is_deleted
         }
@@ -29,10 +35,10 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
 
     const handleDelete = async () =>{
         setOpen(false)
-        const userConfirmed = window.confirm(`Are you sure you want to delete Conductor?`);
+        const userConfirmed = window.confirm(`Are you sure you want to delete Trip?`);
         if (userConfirmed) {
             const result = await loadDataFromApi(
-                getEndpoint(`conductor/${entity.id}`),
+                getEndpoint(`trip/${entity.id}`),
                 "DELETE",
                 {
                     token: localStorage.getItem("token"),
@@ -44,10 +50,10 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
     }
 
     const handleSubmit = async () => {
-        if(apiRequest.data.employee_id > 0){
+        if(apiRequest.data.vehicle_id > 0 && apiRequest.data.route_id > 0){
             setOpen(false)
             const result = await loadDataFromApi(
-                getEndpoint(`conductor${entity.id==0 ? "" : `/${entity.id}` }`),
+                getEndpoint(`trip${entity.id==0 ? "" : `/${entity.id}` }`),
                 entity.id == 0 ? "POST" : "PUT",
                 apiRequest
             )
@@ -76,7 +82,7 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     }}
                 >
                     <Typography>
-                        {entity.id == 0 ? "Create Conductor" : "Update Conductor"}
+                        {entity.id == 0 ? "Create Trip" : "Update Trip"}
                     </Typography>
                     <IconButton
                         onClick={handleClose}
@@ -93,18 +99,95 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     <Stack spacing={2} paddingY={2}>
                         <Autocomplete
                             disablePortal
-                            options={employeeData
-
-                            }
-                            renderInput={(params) => <TextField {...params} label="Employee"/>}
+                            options={vehicleData}
+                            renderInput={(params) => <TextField {...params} label="Vehicle"/>}
                             onChange={(e,val)=>{
                                 setApiRequest((prevApiRequest) => ({
                                     ...prevApiRequest,
                                     data: {
                                         ...prevApiRequest.data,
-                                        employee_id: val===null ? 0 : val.id
+                                        vehicle_id: val===null ? 0 : val.id
                                       }
                                 }))
+                            }}
+                        />
+
+                        <Autocomplete
+                            disablePortal
+                            options={routeData}
+                            renderInput={(params) => <TextField {...params} label="Route"/>}
+                            onChange={(e,val)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        route_id: val===null ? 0 : val.id
+                                      }
+                                }))
+                            }}
+                        />
+
+                        <TextField 
+                            label="Trip Number" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.trip_number}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        trip_number: e.target.value
+                                    }
+                                }));
+                            }}
+                        />
+
+                        <TextField 
+                            label="Fuel Consumption" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.fuel_consumed}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        fuel_consumed: e.target.value
+                                    }
+                                }));
+                            }}
+                        />
+
+                        <TextField
+                            label="Distance Traveled" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.distance_traveled}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        distance_traveled: e.target.value
+                                    }
+                                }));
+                            }}
+                        />
+                        
+                        <TextField
+                            label="Cash Collected" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.cash_collected}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        cash_collected: e.target.value
+                                    }
+                                }));
                             }}
                         />
 

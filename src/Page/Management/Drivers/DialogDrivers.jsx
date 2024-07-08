@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
 import { getEndpoint } from "../../../Api/endpoints";
 
-export default function DialogConductors({entity, employeeData, trigger, setTrigger}){
+export default function DialogDrivers({entity, employeeData, trigger, setTrigger}){
     const [defaultEntityData, setDefaultEntityData] = useState(
         {
             id: entity.id,
@@ -29,10 +29,10 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
 
     const handleDelete = async () =>{
         setOpen(false)
-        const userConfirmed = window.confirm(`Are you sure you want to delete Conductor?`);
+        const userConfirmed = window.confirm(`Are you sure you want to delete Driver?`);
         if (userConfirmed) {
             const result = await loadDataFromApi(
-                getEndpoint(`conductor/${entity.id}`),
+                getEndpoint(`driver/${entity.id}`),
                 "DELETE",
                 {
                     token: localStorage.getItem("token"),
@@ -47,7 +47,7 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
         if(apiRequest.data.employee_id > 0){
             setOpen(false)
             const result = await loadDataFromApi(
-                getEndpoint(`conductor${entity.id==0 ? "" : `/${entity.id}` }`),
+                getEndpoint(`driver${entity.id==0 ? "" : `/${entity.id}` }`),
                 entity.id == 0 ? "POST" : "PUT",
                 apiRequest
             )
@@ -76,7 +76,7 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     }}
                 >
                     <Typography>
-                        {entity.id == 0 ? "Create Conductor" : "Update Conductor"}
+                        {entity.id == 0 ? "Create Driver" : "Update Driver"}
                     </Typography>
                     <IconButton
                         onClick={handleClose}

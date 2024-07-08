@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
 import { getEndpoint } from "../../../Api/endpoints";
 
-export default function DialogConductors({entity, employeeData, trigger, setTrigger}){
+export default function DialogRoutes({entity, routeTypeData, trigger, setTrigger}){
     const [defaultEntityData, setDefaultEntityData] = useState(
         {
             id: entity.id,
-            employee_id: entity.employee_id,
+            route_type_id: entity.route_type_id,
+            route_number: entity.route_number,
+            route_name: entity.route_name,
+            route_description: entity.route_description,
+            route_length: entity.route_length,
             is_active: entity.is_active,
             is_deleted: entity.is_deleted
         }
@@ -29,10 +33,10 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
 
     const handleDelete = async () =>{
         setOpen(false)
-        const userConfirmed = window.confirm(`Are you sure you want to delete Conductor?`);
+        const userConfirmed = window.confirm(`Are you sure you want to delete Driver?`);
         if (userConfirmed) {
             const result = await loadDataFromApi(
-                getEndpoint(`conductor/${entity.id}`),
+                getEndpoint(`route/${entity.id}`),
                 "DELETE",
                 {
                     token: localStorage.getItem("token"),
@@ -44,10 +48,10 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
     }
 
     const handleSubmit = async () => {
-        if(apiRequest.data.employee_id > 0){
+        if(apiRequest.data.route_type_id > 0){
             setOpen(false)
             const result = await loadDataFromApi(
-                getEndpoint(`conductor${entity.id==0 ? "" : `/${entity.id}` }`),
+                getEndpoint(`route${entity.id==0 ? "" : `/${entity.id}` }`),
                 entity.id == 0 ? "POST" : "PUT",
                 apiRequest
             )
@@ -76,7 +80,7 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     }}
                 >
                     <Typography>
-                        {entity.id == 0 ? "Create Conductor" : "Update Conductor"}
+                        {entity.id == 0 ? "Create Route" : "Update Route"}
                     </Typography>
                     <IconButton
                         onClick={handleClose}
@@ -93,19 +97,81 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     <Stack spacing={2} paddingY={2}>
                         <Autocomplete
                             disablePortal
-                            options={employeeData
-
-                            }
-                            renderInput={(params) => <TextField {...params} label="Employee"/>}
+                            options={routeTypeData}
+                            renderInput={(params) => <TextField {...params} label="Route Type"/>}
                             onChange={(e,val)=>{
                                 setApiRequest((prevApiRequest) => ({
                                     ...prevApiRequest,
                                     data: {
                                         ...prevApiRequest.data,
-                                        employee_id: val===null ? 0 : val.id
+                                        route_type_id: val===null ? 0 : val.id
                                       }
                                 }))
                             }}
+                        />
+
+                        <TextField 
+                            label="Route Number" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.route_number}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        route_number: e.target.value
+                                      }
+                                }));
+                            }}                            
+                        />
+
+                        <TextField 
+                            label="Route Name" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.route_name}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        route_name: e.target.value
+                                      }
+                                }));
+                            }}                            
+                        />
+
+                        <TextField 
+                            label="Route Description" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.route_description}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        route_description: e.target.value
+                                      }
+                                }));
+                            }}                            
+                        />
+
+                        <TextField 
+                            label="Route Length" 
+                            size="small" 
+                            variant="outlined" 
+                            value={apiRequest.data.route_length}
+                            onChange={(e)=>{
+                                setApiRequest((prevApiRequest) => ({
+                                    ...prevApiRequest,
+                                    data: {
+                                        ...prevApiRequest.data,
+                                        route_length: isNaN(e.target.value) ? 0 : e.target.value
+                                      }
+                                }));
+                            }}                            
                         />
 
                         <FormControlLabel
@@ -150,7 +216,7 @@ export default function DialogConductors({entity, employeeData, trigger, setTrig
                     <Button
                         variant='contained'
                         autoFocus
-                        startIcon={<Update/>}
+                        startIcon={entity.id == 0 ? <Add/> : <Update/>}
                         onClick={()=>{
                             handleSubmit()
                         }}

@@ -1,10 +1,9 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-import DialogConductors from "./DialogConductors";
+import DialogRoutes from "./DialogRoutes";
 import { useEffect, useState } from "react";
 import getColor from "../../../Theme/colors";
 
-
-export default function TableConductors({entityData, employeeData, trigger, setTrigger}) {
+export default function TableRoutes({entityData, routeTypeData, trigger, setTrigger}) {
     const [searchText,setSearchText] = useState("")
 
     useEffect(()=>{},[trigger])
@@ -39,34 +38,43 @@ export default function TableConductors({entityData, employeeData, trigger, setT
                         }}
                     >
                         <TableCell>#</TableCell>
-                        <TableCell>NIC Number</TableCell>
-                        <TableCell>Name</TableCell>
+                        <TableCell>Route Type</TableCell>
+                        <TableCell>Route Number</TableCell>
+                        <TableCell>Route Name</TableCell>
+                        <TableCell>Route Description</TableCell>
+                        <TableCell>Route Length</TableCell>
                         <TableCell></TableCell>
                     </TableRow>                    
                 </TableHead>
                 <TableBody>
                     {entityData && entityData.map((entity,index) => (
-                        employeeData.filter(employee => {
-                            const fullName = `${employee.first_name} ${employee.last_name}`.toLowerCase();
-                            const nicNumber = employee.nic_number.toLowerCase();
+                        routeTypeData.filter(routeType => {
+                            const routeTypeName = routeType.route_type_name.toLowerCase();
+                            const routeNumber = entity.route_number.toLowerCase();
+                            const routeName = entity.route_name.toLowerCase();
+                            const routeDescription = entity.route_description.toLowerCase();
                             const search = searchText.toLowerCase();
-                            
                             return (
-                                (fullName.includes(search) || nicNumber.includes(search)) 
-                                && employee.id == entity.employee_id
-                            )
-                            
-                        }).map((employee)=>(
+                                (routeTypeName.includes(search) ||
+                                routeNumber.includes(search) ||
+                                routeName.includes(search) ||
+                                routeDescription.includes(search)
+                                )&& routeType.id == entity.route_type_id
+                            )                            
+                        }).map((routeType)=>(
                              <TableRow
                                 key={entity.id}
                             >
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{employee.nic_number}</TableCell>
-                                <TableCell>{employee.first_name} {employee.last_name}</TableCell>
+                                <TableCell>{routeType.route_type_name}</TableCell>
+                                <TableCell>{entity.route_number}</TableCell>
+                                <TableCell>{entity.route_name}</TableCell>
+                                <TableCell>{entity.route_description}</TableCell>
+                                <TableCell>{entity.route_length}m</TableCell>
                                 <TableCell>
-                                    <DialogConductors
+                                    <DialogRoutes
                                         entity={entity}
-                                        employeeData={employeeData}
+                                        routeTypeData={routeTypeData}
                                         trigger={trigger}
                                         setTrigger={setTrigger}
                                     />

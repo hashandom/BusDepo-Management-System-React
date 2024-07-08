@@ -3,10 +3,10 @@ import SideBar from "../../../Component/SideBar";
 import { useEffect, useState } from "react";
 import { loadDataFromApi } from "../../../Api/loadDataFromApi";
 import { getEndpoint } from "../../../Api/endpoints";
-import TableConductors from "./TableConductors";
-import DialogConductors from "./DialogConductors";
+import DialogDrivers from "./DialogDrivers";
+import TableDrivers from "./TableDrivers";
 
-export default function ManageConductors(){
+export default function ManageDrivers(){
     const [trigger, setTrigger] = useState(false)
     const [entityData,setEntityData] = useState([])
     const [apiRequest,setApiRequest] = useState({
@@ -26,7 +26,7 @@ export default function ManageConductors(){
             })))
 
             //loading conductor details
-            const response = await loadDataFromApi(getEndpoint(`conductor`),"PATCH",apiRequest);
+            const response = await loadDataFromApi(getEndpoint(`driver`),"PATCH",apiRequest);
             setEntityData(response)
         }
         loadData()
@@ -37,8 +37,8 @@ export default function ManageConductors(){
             <Box sx={{ display: 'flex' }}>
                 <SideBar/>
                 <Box component="main" sx={{ flexGrow: 1, p: 2, marginTop: "50px" }}>
-                    <h3>Conductor Management</h3>
-                    <DialogConductors
+                    <h3>Driver Management</h3>
+                    <DialogDrivers
                         entity={{
                             id: 0,
                             employee_id: 0,
@@ -49,7 +49,7 @@ export default function ManageConductors(){
                         trigger={trigger}
                         setTrigger={setTrigger}
                     />
-                    <TableConductors
+                    <TableDrivers
                         employeeData={employeeData}
                         entityData={entityData}
                         trigger={trigger}

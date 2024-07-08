@@ -1,10 +1,10 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-import DialogConductors from "./DialogConductors";
+import DialogDrivers from "./DialogDrivers";
 import { useEffect, useState } from "react";
 import getColor from "../../../Theme/colors";
 
 
-export default function TableConductors({entityData, employeeData, trigger, setTrigger}) {
+export default function TableDrivers({entityData, employeeData, trigger, setTrigger}) {
     const [searchText,setSearchText] = useState("")
 
     useEffect(()=>{},[trigger])
@@ -64,7 +64,7 @@ export default function TableConductors({entityData, employeeData, trigger, setT
                                 <TableCell>{employee.nic_number}</TableCell>
                                 <TableCell>{employee.first_name} {employee.last_name}</TableCell>
                                 <TableCell>
-                                    <DialogConductors
+                                    <DialogDrivers
                                         entity={entity}
                                         employeeData={employeeData}
                                         trigger={trigger}

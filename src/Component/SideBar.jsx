@@ -26,9 +26,9 @@ import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 import { useNavigate } from 'react-router-dom';
-import { AirlineSeatReclineNormal, Assessment, People, Receipt, Report, Settings } from '@mui/icons-material';
+import { AirlineSeatReclineNormal, AltRoute, Assessment, BusAlert, Logout, People, Receipt, Report, Settings } from '@mui/icons-material';
 import readToken from '../Api/tokenReader';
-import { Snackbar } from '@mui/material';
+import { Button, Snackbar } from '@mui/material';
 import TokenInfoDisplay from '../Api/TokenInfoDisplay';
 const drawerWidth = 240;
 
@@ -113,6 +113,10 @@ export default function SideBar() {
     setOpen(false);
   };
 
+  React.useEffect(()=>{
+    !localStorage.getItem('token') != "" && navigate('/login')
+  })
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -130,13 +134,33 @@ export default function SideBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography 
+            variant="h6" 
+            noWrap 
+            component="div"
+            width={'100%'}
+          >
             Depot Management System
           </Typography>
+          <Button
+            variant='contained'
+            color='error'
+            startIcon={<Logout/>}
+            onClick={() => {
+              navigate("/login")
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} >
         <DrawerHeader>
+            <Box
+              component="img"
+              src="/Super3Logo.svg"
+              maxHeight={40}
+            />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -165,128 +189,7 @@ export default function SideBar() {
             </ListItemButton>
           </ListItem>
           <Divider />
-          {/* <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/User") }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <AccountCircleIcon />
-              </ListItemIcon>
-
-
-
-              <ListItemText primary="User" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/Employee") }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <ConstructionIcon />
-              </ListItemIcon>
-
-              <ListItemText primary="Employee" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/BusRoute") }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                < AltRouteIcon />
-              </ListItemIcon>
-
-              <ListItemText primary="BusRoute" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/Vehicle") }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                < DirectionsBusFilledIcon />
-              </ListItemIcon>
-
-              <ListItemText primary="Vehicles" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem
-            disablePadding
-            sx={{
-              display: 'block'
-            }}
-            onClick={() => {
-              navigate("/TripRecords")
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <MenuBookIcon />
-              </ListItemIcon>
-
-              <ListItemText primary="TripRecords" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <Divider /> */}
-
-
+         
           <ListItem
             disablePadding
             onClick={() => {
@@ -364,6 +267,46 @@ export default function SideBar() {
                   </ListItemIcon>
                   <ListItemText
                     primary="Conductors"
+                  />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/manage/routes")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AltRoute/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Routes"
+                  />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                sx={{
+                  background:"white",
+                  marginLeft:'10px'
+                }}
+                onClick={() => {
+                  navigate("/manage/trips")
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <BusAlert/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Trips"
                   />
                 </ListItemButton>
               </ListItem>

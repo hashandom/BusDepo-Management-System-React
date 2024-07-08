@@ -80,19 +80,19 @@ export default function Login() {
     //First of all Check for Errors
 
     // If Email error is true
-    if (emailError || !emailInput) {
-      setFormValid("Email is Invalid. Please Re-Enter");
-      return;
-    }
+    // if (emailError || !emailInput) {
+    //   setFormValid("Email is Invalid. Please Re-Enter");
+    //   return;
+    // }
 
     // If Password error is true
-    if (passwordError || !passwordInput) {
-      setFormValid(
-        "Password is set btw 5 - 20 characters long. Please Re-Enter"
-      );
-      return;
-    }
-    setFormValid(null);
+    // if (passwordError || !passwordInput) {
+    //   setFormValid(
+    //     "Password is set btw 5 - 20 characters long. Please Re-Enter"
+    //   );
+    //   return;
+    // }
+    // setFormValid(null);
 
     // // Proceed to use the information passed
     // console.log("Email : " + emailInput);
@@ -106,7 +106,7 @@ export default function Login() {
     const requestbody = {
       token : "",
       data : {
-        email : emailInput,
+        username : emailInput,
         password : passwordInput
       }
     }
@@ -131,7 +131,7 @@ export default function Login() {
           value={emailInput}
           InputProps={{}}
           size="small"
-          onBlur={handleEmail}
+          // onBlur={handleEmail}
           onChange={(event) => {
             setEmailInput(event.target.value);
           }}
@@ -222,7 +222,7 @@ export default function Login() {
         </small>
       </div>
     
-      <Button 
+      {/* <Button 
         variant="contained"
         onClick = {() => {
           const savedToken = localStorage.getItem("token")
@@ -230,8 +230,7 @@ export default function Login() {
         }}
       >
         Read Token
-      </Button>   
-    
+      </Button>        */}
     </div>
 
     

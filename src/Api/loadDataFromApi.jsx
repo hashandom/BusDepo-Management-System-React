@@ -18,6 +18,6 @@ export const loadDataFromApi = async (endpointurl, requestmethod, requestbody) =
         return result;
     } catch (error) {
         console.log("error",error)
-        return [];
+        return[];
     }
 };

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import SideBar from "../../Component/SideBar";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
@@ -37,7 +37,17 @@ export default function PerformanceReportRoute(){
                                 }
                             }}                     
                         />
+                        <Button
+                            variant="contained"
+                            onClick={(e)=>{
+                                
+                            }}
+                        >
+                            Load Data
+                        </Button>
                     </Box>
+
+
 
 
                 </Box>

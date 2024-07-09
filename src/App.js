@@ -1,6 +1,7 @@
 import React from 'react'
 import {Routes,Route,BrowserRouter} from "react-router-dom"
-import Dashboard from './Page/Dashboard'
+// import Dashboard from './Page/Dashboard'
+import Dashboard from './Page/Dashboard/Dashboard'
 import User from './Page/User'
 import Employee from './Page/Employee'
 import BusRoute from './Page/BusRoute'
